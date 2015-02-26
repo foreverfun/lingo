@@ -3,4 +3,31 @@ extends layout
 block content
   h1 Lingo Quiz!
 
+  ul
+    li
+      a(href="/") Home
+    li
+      a(href="/translate") Translate
+    li
+      a(href="/quiz") Quiz
   
+  form(action="/langForm" method="post")
+    lable Language: 
+      input(type="text" name="lang")
+    input(type="submit")
+
+  p=index
+  
+  form(action="/quizForm" method="post")
+    p
+      label Word: 
+        input(type="text" name="word" value='#{word}')
+    p 
+      label Translation:
+        input(type="text" name="translation")
+    p
+      input(type="submit")
+
+  p=correct
+  //- for word in words
+  //-   li=word
