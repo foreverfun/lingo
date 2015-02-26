@@ -1,9 +1,9 @@
 
-// var BeGlobal = require('node-beglobal');
-// var beglobal = new BeGlobal.BeglobalAPI({
-//   api_token: 'wsV%2B3A47wGAxxJ9hYYdvuQ%3D%3D'
-// });
-var translation = require('../models/translation.js');
+var BeGlobal = require('node-beglobal');
+var beglobal = new BeGlobal.BeglobalAPI({
+  api_token: 'wsV%2B3A47wGAxxJ9hYYdvuQ%3D%3D'
+});
+//var translation = require('../models/translation.js');
 var words = require('../models/words.js');
 var scores = require('../models/scores.js')
 
@@ -60,21 +60,22 @@ var indexController = {
 
   quizAction: function(req, res) {
       console.log("form", req.body.translation);
-      beglobal.translations.translate(
-      //{text: 'hello', from: 'eng', to: 'fra'},
-      {text: scores.pickedWords[scores.currentQuestion], from: 'eng', to: scores.chosenLanguage},
-      function(err, results) {
-        if (err) {
-          console.log("err:", err);
-          return err;
-        }
-        console.log("translation:",results);
-        if (results.translation === req.body.translation) 
-          res.render('quiz', {
+      beglobal.translations.translate({
+        text: scores.pickedWords[scores.currentQuestion], 
+        from: 'eng', 
+        to: scores.chosenLanguage
+        },
+        function(err, results) {
+          if (err) {
+            console.log("err:", err);
+            return err;
+          }
+          console.log("translation:",results);
+          if (results.translation === req.body.translation) 
+            res.render('quiz', {
             correct:"correct"
           });
       });
-      //res.render('');
   }
 
   
